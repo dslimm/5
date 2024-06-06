@@ -4,7 +4,7 @@ function createElems1() {
 
     div.innerHTML = `  
         <div class="elems1">  
-            <a href="/menu/menu.html">  
+            <a href="/5/menu/menu.html">  
                 <div class="back"></div>  
             </a>  
             <div class="sound"></div>  
