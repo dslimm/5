@@ -1,0 +1,32 @@
+h2,
+h3 {
+    text-align: center;
+    font-family: "Rubik Moonrocks", sans-serif;
+    letter-spacing: 0.05em;
+    font-size: 4.3vw;
+}
+h2 {
+    margin: 0 auto;
+    background: #ddd;
+    color: #000;
+    padding: 2% 0;
+}
+h3 {
+    margin: 3% auto;
+    color: #000;
+}
+
+@media screen and (min-width: 1001px) {
+    h2 {
+        padding: 1% 0;
+    }
+    h3 {
+        margin: 2% auto;
+    }
+}
+@media screen and (min-width: 1001px) and (min-resolution: 1dppx) {
+    h2,
+    h3 {
+        font-size: 2.2em;
+    }
+}

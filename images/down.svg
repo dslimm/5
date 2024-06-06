@@ -1,0 +1,12 @@
+<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" version="1.0">
+
+ <g>
+  <title>Layer 1</title>
+  <g stroke-width="10" id="svg_1" fill="#000000" transform="translate(0 100) scale(0.1 -0.1)">
+   <path stroke="#0f0f00" fill="#e5962c" id="svg_2" d="m460,865c0,-22 4,-25 40,-25c36,0 40,3 40,25c0,23 -4,25 -40,25c-36,0 -40,-2 -40,-25z"/>
+   <path stroke="#0f0f00" fill="#e5962c" id="svg_3" d="m460,770c0,-28 2,-30 40,-30c38,0 40,2 40,30c0,28 -2,30 -40,30c-38,0 -40,-2 -40,-30z"/>
+   <path stroke="#0f0f00" fill="#e5962c" id="svg_4" d="m452,663c3,-38 3,-38 48,-38c45,0 45,0 48,38l3,37l-51,0l-51,0l3,-37z"/>
+   <path stroke="#0f0f00" fill="#e5962c" id="svg_5" d="m446,513c-3,-42 -6,-98 -6,-125l0,-48l-60,0c-33,0 -60,-3 -60,-6c0,-9 172,-214 180,-214c8,0 180,205 180,214c0,3 -27,6 -60,6l-60,0l0,48c0,27 -3,83 -6,125l-7,77l-47,0l-47,0l-7,-77z"/>
+  </g>
+ </g>
+</svg>

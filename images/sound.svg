@@ -1,0 +1,20 @@
+<svg width="200" height="200" xmlns="http://www.w3.org/2000/svg">
+ <g id="Layer_1">
+  <title>Layer 1</title>
+  <g stroke-width="5" stroke="null">
+   <g stroke="null" transform="translate(25.6 25.6) scale(0.8 0.8)">
+    <g stroke="null" text-anchor="none" font-size="none" font-weight="none" font-family="none" stroke-dashoffset="0" stroke-miterlimit="10" fill-rule="nonzero" fill="#dddddd" fill-opacity="0">
+     <path fill="#e5962c" stroke="#000000" id="svg_1" d="m-69.5,253l0,-320l320,0l0,320l-320,0z"/>
+    </g>
+    <g stroke="null" text-anchor="none" font-size="none" font-weight="none" font-family="none" stroke-dashoffset="0" stroke-miterlimit="10" fill-rule="nonzero" fill="#e5962c">
+     <g stroke="null" transform="translate(0.12814 0.12473) scale(4.26667 4.26667)">
+      <g stroke="null" transform="translate(0 60) scale(0.1 -0.1)">
+       <path fill="#e5962c" stroke="#000000" d="m247.10944,517.03116l-100,-31l-3,-75c-3,-72 -4,-74 -35,-89c-67,-31 -33,-127 36,-101c30,12 36,30 39,120l3,64l68,23l67,23l0,-45c0,-40 -2,-44 -23,-44c-13,0 -31,-8 -40,-18c-46,-51 21,-120 76,-79c15,11 17,29 15,147l-3,136l-100,-31z"/>
+      </g>
+     </g>
+    </g>
+   </g>
+  </g>
+ </g>
+
+</svg>

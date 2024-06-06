@@ -1,0 +1,61 @@
+.menu a {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    margin: 10% 15%;
+    cursor: pointer;
+    font-family: "Rubik Bubbles", sans-serif;
+    font-weight: bold;
+    font-size: 1.3em;
+    text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.8);
+    letter-spacing: 0.2vw;
+    word-spacing: 0.5vw;
+    text-align: center;
+    border: 1px solid white;
+    padding: 5%;
+    box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.3);
+}
+.menu a:active {
+    background-color: #ddd;
+    opacity: 0.6;
+    box-shadow: 0 0 5px 5px rgba(255, 255, 255, 0.3);
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);
+}
+.play {
+    color: #006400;
+}
+.how {
+    color: #8b0000;
+}
+.records {
+    color: #343e40;
+}
+.settings {
+    color: #000;
+}
+.conf {
+    font-size: 0.6em;
+    color: #000;
+}
+@media screen and (min-width: 321px) and (max-width: 480px) {
+    .menu a {
+        font-size: 1.5em;
+    }
+}
+@media screen and (min-width: 481px) and (max-width: 700px) {
+    .menu a {
+        font-size: 2em;
+    }
+}
+@media screen and (min-width: 701px) and (max-width: 1000px) {
+    .menu a {
+        font-size: 2.5em;
+    }
+}
+@media screen and (min-width: 1001px) {
+    .menu a {
+        margin: 3% 25%;
+        padding: 1.5% 0;
+        font-size: 2.5em;
+    }
+}

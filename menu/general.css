@@ -1,0 +1,100 @@
+@font-face {
+    font-family: "Rubik Moonrocks";
+    src: url("/fonts/RubikMoonrocks-Regular.ttf");
+}
+@font-face {
+    font-family: "Rubik Bubbles";
+    src: url("/fonts/RubikBubbles-Regular.ttf");
+}
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background: linear-gradient( 
+            to top, 
+            #9f7928 10%,
+            #d1b464 45%,
+            #d1b464 55%,
+            #9f7928 90%
+        );
+    background-blend-mode: screen;
+    background-attachment: fixed;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.elems1 {
+    display: flex;
+    justify-content: space-between;
+    margin: 3vh auto;
+    padding: 0 5%;
+}
+.sound,
+.back {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    box-shadow: 0 0 2px 2px rgba(255, 255, 255, 0.8);
+    border: 2px solid #006400;
+    border-radius: 10%;
+    background-size: cover;
+}
+.back {
+    background-image: url("/images/back.svg");
+}
+.sound {
+    background-image: url("/images/sound-green.svg");
+}
+.no-sound {
+    border: 2px solid #8b0000;
+    background-image: url("/images/no-sound.svg");
+}
+.sound:active,
+.back:active {
+    background-color: #ddd;
+}
+a {
+    text-decoration: none;
+}
+h1 {
+    text-align: center;
+    margin: 0 auto 5% auto;
+    font-family: "Rubik Moonrocks", sans-serif;
+    font-size: 1.3em;
+    font-weight: bold;
+    letter-spacing: 0.1em;
+    word-spacing: 0.3em;
+    text-shadow: 2px 2px 2px rgba(255, 255, 255, 0.8);
+    color: #8b0000;
+}
+@media screen and (min-width: 321px) and (max-width: 480px) {
+    .sound,
+    .back {
+        width: 30px;
+        height: 30px;
+    }
+}
+@media screen and (min-width: 481px) and (max-width: 700px) {
+    .sound,
+    .back {
+        width: 36px;
+        height: 36px;
+    }
+}
+@media screen and (min-width: 701px) and (max-width: 1000px) {
+    .sound,
+    .back {
+        width: 36px;
+        height: 36px;
+    }
+}
+@media screen and (min-width: 1001px) {
+    .sound,
+    .back {
+        width: 30px;
+        height: 30px;
+    }
+}

@@ -1,0 +1,17 @@
+<svg width="200" height="200" xmlns="http://www.w3.org/2000/svg" version="1.1">
+
+ <g>
+  <title>Layer 1</title>
+  <g stroke="null" stroke-width="5" id="svg_1" transform="translate(25.6 25.6) scale(0.8 0.8)">
+   <g stroke="null" id="svg_2" text-anchor="none" font-size="none" font-weight="none" font-family="none" stroke-dashoffset="0" stroke-miterlimit="10" stroke-linejoin="none" stroke-width="none" fill-rule="nonzero" fill="none">
+    <path stroke="#000000" stroke-linejoin="round" stroke-width="10" fill="#8b0000" id="strokeMainSVG" d="m-125.38856,-25.81424l110,0l0,320l-110,0l0,-320zm170,0l110,0l0,320l-110,0l0,-320z" transform="translate(87.5 35) scale(0.42667 0.42667)"/>
+    <g stroke="null" id="svg_3" fill="#e5962c" transform="translate(87.5 35) scale(4.26667 4.26667)">
+     <g stroke="null" id="svg_4" transform="translate(0 60) scale(0.1 -0.1)">
+      <path fill="#8b0000" stroke="null" id="svg_5" d="m-125.39055,465.81544l0,-160l55,0l55,0l0,160l0,160l-55,0l-55,0l0,-160z"/>
+      <path fill="#8b0000" stroke="null" id="svg_6" d="m44.60945,465.81544l0,-160l55,0l55,0l0,160l0,160l-55,0l-55,0l0,-160z"/>
+     </g>
+    </g>
+   </g>
+  </g>
+ </g>
+</svg>

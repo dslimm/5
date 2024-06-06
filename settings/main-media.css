@@ -1,0 +1,138 @@
+@media screen and (min-width: 321px) and (max-width: 480px) {
+    .levels {
+        font-size: 0.8rem;
+        line-height: 1.1;
+    }
+    .levels-text {
+        font-size: 1rem;
+    }
+    .elems2 {
+        gap: 20%;
+    }
+    .game-board {
+        width: 229px;
+        height: 458px;
+    }
+    .card {
+        width: 45px;
+        height: 45px;
+    }
+    .new,
+    .cub,
+    .single,
+    .fix,
+    .zero,
+    .del,
+    .swap {
+        width: 43px;
+        height: 43px;
+        font-size: 1.4em;
+        line-height: 2;
+    }
+}
+
+@media screen and (min-width: 481px) and (max-width: 700px) {
+    .levels {
+        font-size: 0.9rem;
+        line-height: 1.2;
+    }
+    .levels-text {
+        font-size: 1.1rem;
+    }
+    .game-board {
+        width: 254px;
+        height: 508px;
+    }
+    .card {
+        width: 50px;
+        height: 50px;
+    }
+    .new,
+    .cub,
+    .single,
+    .fix,
+    .zero,
+    .del,
+    .swap {
+        width: 48px;
+        height: 48px;
+        font-size: 1.5em;
+        line-height: 2;
+    }
+}
+
+@media screen and (min-width: 701px) and (max-width: 1000px) {
+    .elems1 {
+        width: 80%;
+    }
+    .levels {
+        font-size: 1rem;
+        line-height: 1.1;
+    }
+    .levels-text {
+        font-size: 1.2rem;
+    }
+    .elems2 {
+        gap: 0%;
+    }
+    .game-board {
+        width: 254px;
+        height: 508px;
+    }
+    .card {
+        width: 50px;
+        height: 50px;
+    }
+    .new,
+    .cub,
+    .single,
+    .fix,
+    .zero,
+    .del,
+    .swap {
+        width: 48px;
+        height: 48px;
+        font-size: 1.5em;
+        line-height: 2.1;
+    }
+}
+
+@media screen and (min-width: 1001px) {
+    .elems1 {
+        width: 37%;
+    }
+    .levels {
+        font-size: 0.8rem;
+        line-height: 1.1;
+    }
+    .levels-text {
+        font-size: 1rem;
+    }
+    .elems2 {
+        gap: 0%;
+    }
+    .scores,
+    .time {
+        width: 20%;
+    }
+    .game-board {
+        width: 204px;
+        height: 408px;
+    }
+    .card {
+        width: 40px;
+        height: 40px;
+    }
+    .new,
+    .cub,
+    .single,
+    .fix,
+    .zero,
+    .del,
+    .swap {
+        width: 38px;
+        height: 38px;
+        font-size: 1.2em;
+        line-height: 2.1;
+    }
+}

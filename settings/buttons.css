@@ -1,0 +1,138 @@
+.sound,
+.pause {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    box-shadow: 0 0 2px 2px rgba(255, 255, 255, 0.8);
+    border: 2px solid #e5962c;
+    border-radius: 10%;
+    background-size: cover;
+}
+.pause {
+    background-image: url("/images/pause.svg");
+}
+.sound {
+    background-image: url("/images/sound.svg");
+}
+.no-sound,
+.no-pause {
+    color: #8b0000;
+    border: 2px solid #8b0000;
+}
+.no-pause {
+    background-image: url("/images/no-pause.svg");
+}
+.no-sound {
+    background-image: url("/images/no-sound.svg");
+}
+.sound:active,
+.pause:active {
+    background-color: #ddd;
+}
+.btn {
+    display: flex;
+    justify-content: center;
+    gap: 15%;
+    margin: 3vh auto 0 auto;
+}
+#left,
+#right,
+#down {
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    border: 2px solid #e5962c;
+    border-radius: 3px;
+    box-shadow: 0 0 2px 2px rgba(255, 255, 255, 0.8);
+    background-size: cover;
+}
+#left {
+    background-image: url("/images/left.svg");
+}
+#right {
+    background-image: url("/images/right.svg");
+}
+#down {
+    background-image: url("/images/down.svg");
+}
+#left:active,
+#right:active,
+#down:active {
+    background-color: #ddd;
+}
+
+@media screen and (min-width: 321px) and (max-width: 480px) {
+    .sound,
+    .pause {
+        width: 30px;
+        height: 30px;
+    }
+    .btn {
+        gap: 15%;
+    }
+    #left,
+    #right,
+    #down {
+        width: 65px;
+        height: 65px;
+    }
+}
+@media screen and (min-width: 481px) and (max-width: 700px) {
+    .sound,
+    .pause {
+        width: 36px;
+        height: 36px;
+    }
+    .btn {
+        gap: 20%;
+    }
+    #left,
+    #right,
+    #down {
+        width: 80px;
+        height: 80px;
+    }
+}
+@media screen and (min-width: 701px) and (max-width: 1000px) {
+    .sound,
+    .pause {
+        width: 36px;
+        height: 36px;
+    }
+    .btn {
+        gap: 17%;
+    }
+    #left,
+    #right,
+    #down {
+        width: 90px;
+        height: 90px;
+    }
+}
+@media screen and (min-width: 1001px) {
+    .sound,
+    .pause {
+        width: 30px;
+        height: 30px;
+    }
+    .btn {
+        gap: 7%;
+    }
+    #left,
+    #right,
+    #down {
+        width: 60px;
+        height: 60px;
+    }
+}
+@media screen and (min-width: 1001px) and (min-resolution: 1dppx) {
+    .btn {
+        gap: 7%;
+    }
+    #left,
+    #right,
+    #down {
+        width: 80px;
+        height: 80px;
+    }
+}

@@ -1,0 +1,173 @@
+@font-face {
+    font-family: "Rubik Moonrocks";
+    src: url("/fonts/RubikMoonrocks-Regular.ttf");
+}
+@font-face {
+    font-family: "Rubik Bubbles";
+    src: url("/fonts/RubikBubbles-Regular.ttf");
+}
+body {
+    display: flex;
+    flex-direction: column;
+    /* max-height: 100vh; */
+    justify-content: center;
+    padding: 0;
+    margin: 5vh 0 0 0;
+    box-sizing: border-box;
+    background-color: #343e40;
+    background-attachment: fixed;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.elems1 {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto 3vh auto;
+}
+.levels {
+    width: 65%;
+    font-size: 0.7rem;
+    line-height: 1.1;
+    text-align: center;
+    font-family: "Rubik Moonrocks", sans-serif;
+    font-weight: bold;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+        1px 1px 0 #000;
+}
+.text-cubs-value {
+    color: #ddd;
+}
+.levels-text {
+    font-size: 0.9rem;
+    color: #e5962c;
+    font-family: "Rubik Bubbles", sans-serif;
+}
+.elems2 {
+    display: flex;
+    gap: 20%;
+    justify-content: center;
+    background-color: #ddd;
+}
+.scores,
+.time {
+    width: 40%;
+    text-align: center;
+    font-family: "Rubik Bubbles", sans-serif;
+    font-weight: bold;
+    font-size: 2vh;
+    padding: 0.2vh 0;
+    letter-spacing: 0.1em;
+    color: #8b0000;
+}
+.game-board {
+    width: 179px;
+    height: 358px;
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-rows: repeat(10, 5fr);
+    margin: 3vh auto 0 auto;
+    border: 1px solid white;
+    padding: 1px 1px 2px 1px;
+    gap: 1px;
+    background: linear-gradient( 
+            to top, 
+            #5d4a1f -20%,
+            #9f7928 10%,
+            #d1b464 49%,
+            #d1b464 51%,
+            #9f7928 90%,
+            #5d4a1f 120%
+        );
+    background-blend-mode: screen;
+    box-shadow: 0 0 4px 4px rgba(255, 255, 255, 0.3);
+}
+.card {
+    width: 35px;
+    height: 35px;
+    background-image: radial-gradient(circle, #ddd 1px, transparent 0);
+}
+.new,
+.cub,
+.single,
+.fix,
+.zero,
+.del,
+.swap {
+    width: 33px;
+    height: 33px;
+    border-radius: 2px;
+    text-align: center;
+    box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.3);
+    font-size: 1.1em;
+    line-height: 2;
+    font-weight: bold;
+    font-family: "Rubik Moonrocks", sans-serif;
+}
+.new {
+    background: linear-gradient(
+        -45deg,
+        #343e40 0%,
+        #ddd 20%,
+        #ddd 80%,
+        #343e40 100%
+    );
+    border: 1px solid black;
+    color: black;
+}
+.cub,
+.single {
+    background: linear-gradient(
+        -45deg,
+        #ddd 0%,
+        #343e40 20%,
+        #343e40 80%,
+        #ddd 100%
+    );
+}
+.cub,
+.single,
+.fix,
+.zero,
+.del,
+.swap {
+    border: 1px solid #fff;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+        1px 1px 0 #000;
+    color: #ddd;
+}
+.fix,
+.zero,
+.swap {
+    background: linear-gradient(
+        -45deg,
+        #ddd 0%,
+        #006400 20%,
+        #006400 80%,
+        #ddd 100%
+    );
+}
+.del,
+.row-delete .cub {
+    background: linear-gradient(
+        -45deg,
+        #ddd 0%,
+        #8b0000 20%,
+        #8b0000 80%,
+        #ddd 100%
+    );
+}
+.row-delete .cub {
+    border: 1px dotted #fff;
+    color: #ddd;
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+    opacity: 0;
+}
+.cub100 {
+    font-size: 0.9em;
+    line-height: 2.4;
+}

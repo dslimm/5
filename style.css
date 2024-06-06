@@ -1,0 +1,231 @@
+@font-face {
+    font-family: "Rubik Moonrocks";
+    src: url("/fonts/RubikMoonrocks-Regular.ttf");
+}
+@font-face {
+    font-family: "Rubik Bubbles";
+    src: url("/fonts/RubikBubbles-Regular.ttf");
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 90vh;
+    background-color: #343e40;
+    background-attachment: fixed;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+#container {
+    opacity: 1;
+    animation: container 1.5s linear 1s forwards;
+}
+@keyframes container {
+    to { opacity: 0; }
+}
+.modal {
+    position: fixed;
+    z-index: 2;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+    opacity: 0;
+    animation: modal 1.5s linear 2.5s forwards;
+}
+@keyframes modal {
+    0% { opacity: 1; }
+    to { opacity: 0; }
+}
+.modal-content {
+    margin: 50% auto;
+    padding: 30px;
+    width: 80%;
+}
+h1 {
+    text-align: center;
+    font-family: "Rubik Moonrocks", sans-serif;
+    font-size: 4vh;
+    line-height: 2;
+    letter-spacing: 0.1em;
+    word-spacing: 0.3em;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+        1px 1px 0 #000;
+    color: #ddd;
+}
+.game-board {
+    width: 204px;
+    height: 408px;
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-rows: repeat(10, 5fr);
+    border: 1px solid white;
+    padding: 0px 0px 0px 2px;
+    background: linear-gradient(
+        to top,
+        #5d4a1f -20%,
+        #9f7928 10%,
+        #d1b464 40%,
+        #d1b464 60%,
+        #9f7928 90%,
+        #5d4a1f 120%
+    );
+    background-blend-mode: screen;
+    box-shadow: 0 0 4px 4px rgba(255, 255, 255, 0.3);
+}
+.card {
+    width: 40px;
+    height: 40px;
+    background-image: radial-gradient(circle, #ddd 1px, transparent 0);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.cub,
+.fix,
+.zero,
+.del {
+    width: 38px;
+    height: 38px;
+    border-radius: 2px;
+    font-size: 1.3em;
+    background: linear-gradient(
+        -45deg,
+        #343e40 0%,
+        #ddd 20%,
+        #ddd 80%,
+        #343e40 100%
+    );
+    box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.3);
+    font-weight: bold;
+    font-family: "Rubik Moonrocks", sans-serif;
+    color: #ddd;
+}
+.cub,
+.fix,
+.zero,
+.del {
+    border: 1px solid white;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+        1px 1px 0 #000;
+}
+.cub {
+    background: linear-gradient(
+        -45deg,
+        #ddd 0%,
+        #343e40 20%,
+        #343e40 80%,
+        #ddd 100%
+    );
+}
+.zero {
+    color: #ddd;
+    background: linear-gradient(
+        -45deg,
+        #ddd 0%,
+        #006400 20%,
+        #006400 80%,
+        #ddd 100%
+    );
+}
+.fix {
+    color: #006400;
+    border: 1px solid #000;
+}
+.del {
+    color: #ddd;
+    background: linear-gradient(
+        -45deg,
+        #ddd 0%,
+        #8b0000 20%,
+        #8b0000 80%,
+        #ddd 100%
+    );
+}
+
+@media screen and (min-width: 321px) and (max-width: 480px) {
+    .game-board {
+        width: 229px;
+        height: 452px;
+    }
+    .card {
+        width: 45px;
+        height: 45px;
+    }
+    .cub,
+    .fix,
+    .zero,
+    .del {
+        width: 43px;
+        height: 43px;
+        font-size: 1.4em;
+    }
+}
+@media screen and (min-width: 481px) and (max-width: 700px) {
+    .game-board {
+        width: 254px;
+        height: 502px;
+    }
+    .card {
+        width: 50px;
+        height: 50px;
+    }
+    .cub,
+    .fix,
+    .zero,
+    .del {
+        width: 48px;
+        height: 48px;
+        font-size: 1.5em;
+    }
+}
+@media screen and (min-width: 701px) and (max-width: 1000px) {
+    .game-board {
+        width: 254px;
+        height: 502px;
+    }
+    .card {
+        width: 50px;
+        height: 50px;
+    }
+    .cub,
+    .fix,
+    .zero,
+    .del {
+        width: 48px;
+        height: 48px;
+        font-size: 1.6em;
+    }
+}
+@media screen and (min-width: 1001px) {
+    .modal-content {
+        margin: 15% auto;
+    }
+    .game-board {
+        width: 229px;
+        height: 452px;
+    }
+    .card {
+        width: 45px;
+        height: 45px;
+    }
+    .cub,
+    .fix,
+    .zero,
+    .del {
+        width: 43px;
+        height: 43px;
+    }
+}
