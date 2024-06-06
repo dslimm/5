@@ -5,7 +5,7 @@ function myModal() {
         <div id="pause-modal" class="modal"> 
             <div class="modal-content"> 
                 <p class="max-text">ПАУЗА</p> 
-                <a href="/menu/menu.html"> 
+                <a href="/5/menu/menu.html"> 
                     <p class="exit">Выйти в Меню</p> 
                 </a> 
                 <p class="min-text">или</p> 
@@ -16,7 +16,7 @@ function myModal() {
         <div id="loss-modal" class="modal"> 
             <div class="modal-content"> 
                 <p class="max-text loss">Ну, почти...</p> 
-                <a href="/menu/menu.html"> 
+                <a href="/5/menu/menu.html"> 
                     <p class="exit">Выйти в Меню</p> 
                 </a> 
                 <p class="min-text">или</p> 
@@ -31,7 +31,7 @@ function myModal() {
                 <p class="max-text">ПОБЕДА</p> 
                 <p class="min-text win"></p> 
                 <p class="min-text new-record" style="display: none">0</p> 
-                <a href="/menu/menu.html"> 
+                <a href="/5/menu/menu.html"> 
                     <p class="exit">Выйти в Меню</p> 
                 </a> 
                 <p class="min-text">или</p> 
@@ -126,5 +126,5 @@ function gameWin(total) {
 function upLinkLevel() {
     let currentLevel = Number(document.getElementById("level").textContent);
     let nextLevel = currentLevel + 1;
-    document.getElementById("up").href = `/level.html?id=${nextLevel}`;
+    document.getElementById("up").href = `/5/level.html?id=${nextLevel}`;
 }
