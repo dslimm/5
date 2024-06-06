@@ -9,10 +9,10 @@
     background-size: cover;
 }
 .pause {
-    background-image: url("/images/pause.svg");
+    background-image: url("/5/images/pause.svg");
 }
 .sound {
-    background-image: url("/images/sound.svg");
+    background-image: url("/5/images/sound.svg");
 }
 .no-sound,
 .no-pause {
@@ -20,10 +20,10 @@
     border: 2px solid #8b0000;
 }
 .no-pause {
-    background-image: url("/images/no-pause.svg");
+    background-image: url("/5/images/no-pause.svg");
 }
 .no-sound {
-    background-image: url("/images/no-sound.svg");
+    background-image: url("/5/images/no-sound.svg");
 }
 .sound:active,
 .pause:active {
@@ -47,13 +47,13 @@
     background-size: cover;
 }
 #left {
-    background-image: url("/images/left.svg");
+    background-image: url("/5/images/left.svg");
 }
 #right {
-    background-image: url("/images/right.svg");
+    background-image: url("/5/images/right.svg");
 }
 #down {
-    background-image: url("/images/down.svg");
+    background-image: url("/5/images/down.svg");
 }
 #left:active,
 #right:active,
