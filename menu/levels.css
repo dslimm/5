@@ -20,11 +20,8 @@ h3 {
     text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.8);
     cursor: pointer;
 }
-.right0, .right {
-    font-size: 1.2em;
-}
-.down0, .down {
-    font-size: 1em;
+.right0, .right, .down0, .down {
+    vertical-align: 0.1em;
 }
 .levels {
     margin: 0 auto;
