@@ -1,11 +1,17 @@
+
+/* h2 {
+    padding: 0% 5%;
+
+} */
 .h2 {
     display: flex;
     justify-content: space-between;
     background: #ddd;
-    padding: 1% 5%;
+    padding: 0% 5%;
     font-family: "Rubik Moonrocks", sans-serif;
-    font-size: 0.6em;
+    font-size: 0.3em;
     letter-spacing: 0.1em;
+    text-align: center;
     margin: 0 auto;
     color: #000;
 }
@@ -15,7 +21,8 @@
     font-size: 0.9em;
     letter-spacing: 0.1em;
     font-family: "Rubik Bubbles", sans-serif;
-    margin: 1.5% auto 0 auto;
+    margin: 1% auto 0 auto;
+    padding: 0% 7%;
 }
 .best-times {
     background: #343e40;
@@ -44,7 +51,7 @@
 
 @media screen and (min-width: 321px) and (max-width: 480px) {
     .h2 {
-        font-size: 0.8em;
+        font-size: 0.4em;
     }
     .times,
     .best-times {
@@ -53,7 +60,7 @@
 }
 @media screen and (min-width: 481px) and (max-width: 700px) {
     .h2 {
-        font-size: 1em;
+        font-size: 0.7em;
     }
     .times,
     .best-times {
@@ -62,7 +69,7 @@
 }
 @media screen and (min-width: 701px) and (max-width: 1000px) {
     .h2 {
-        font-size: 1.2em;
+        font-size: 1em;
     }
     .times,
     .best-times {
@@ -71,12 +78,12 @@
 }
 @media screen and (min-width: 1001px) {
     .h2 {
-        font-size: 1.3em;
-        padding: 0 10%;
+        font-size: 1em;
+        padding: 0 15%;
     }
     .times,
     .best-times {
-        font-size: 1.6em;
+        font-size: 1.5em;
         margin-top: 2vh;
     }
 }
