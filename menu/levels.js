@@ -19,7 +19,7 @@ function createElements(startLevel, h2Text, isExpand) {
     for (let i = startLevel; i < startLevel + 100; i++) {
         let levelDiv = createDiv("", "level");
         let link = document.createElement("a");
-        link.href = "/5/level.html?id=" + i;
+        link.href = "/level.html?id=" + i;
         link.className = i === startLevel ? "link num" : "no-link num";
         link.textContent = i;
         let span = createSpan("no-record", "00 : 00");
@@ -134,7 +134,7 @@ h2Elem.forEach((h2) => {
 
 // let savedLevels = JSON.parse(localStorage.getItem("levels")) || [];
 
-// savedLevels.forEach((savedLevel, index) => {
+// savedLevels.forEach((savedLevel) => {
 //     let levelLinks = Array.from(document.querySelectorAll(".num"));
 //     let levelLink = levelLinks.find(
 //         (link) => link.textContent === savedLevel.level
@@ -144,30 +144,84 @@ h2Elem.forEach((h2) => {
 //         let recordElem = levelLink.parentNode.querySelector(".no-record");
 //         recordElem.textContent = savedLevel.timer;
 //         recordElem.className = "record";
-//         let nextElem = levelLinks[index + 1];
-//         nextElem.classList.replace("no-link", "link");
+//         let currentLevel = levelLinks.findIndex(
+//             (link) => link.textContent === savedLevel.level
+//         );
+//         let nextLevel = currentLevel + 1;
+//         if (nextLevel < levelLinks.length) {
+//             let nextElem = levelLinks[nextLevel];
+//             nextElem.classList.replace("no-link", "link");
+//         }
 //     }
 // });
 
-let savedLevels = JSON.parse(localStorage.getItem("levels")) || [];
+function openDatabase() {
+    return new Promise((resolve, reject) => {
+        const request = indexedDB.open("GameDatabase", 1);
 
-savedLevels.forEach((savedLevel) => {
-    let levelLinks = Array.from(document.querySelectorAll(".num"));
-    let levelLink = levelLinks.find(
-        (link) => link.textContent === savedLevel.level
-    );
+        request.onupgradeneeded = (event) => {
+            const db = event.target.result;
+            if (!db.objectStoreNames.contains("levels")) {
+                db.createObjectStore("levels", { keyPath: "level" });
+            }
+        };
+        request.onsuccess = (event) => {
+            resolve(event.target.result);
+        };
+        request.onerror = (event) => {
+            reject(event.target.error);
+        };
+    });
+}
 
-    if (levelLink) {
-        let recordElem = levelLink.parentNode.querySelector(".no-record");
-        recordElem.textContent = savedLevel.timer;
-        recordElem.className = "record";
-        let currentLevel = levelLinks.findIndex(
-            (link) => link.textContent === savedLevel.level
-        );
-        let nextLevel = currentLevel + 1;
-        if (nextLevel < levelLinks.length) {
-            let nextElem = levelLinks[nextLevel];
-            nextElem.classList.replace("no-link", "link");
-        }
+function getAllLevels(db) {
+    return new Promise((resolve, reject) => {
+        const transaction = db.transaction(["levels"], "readonly");
+        const objectStore = transaction.objectStore("levels");
+        const request = objectStore.getAll();
+
+        request.onsuccess = (event) => {
+            resolve(event.target.result);
+        };
+        request.onerror = (event) => {
+            reject(event.target.error);
+        };
+    });
+}
+
+async function loadLevels() {
+    try {
+        const db = await openDatabase();
+        const savedLevels = await getAllLevels(db);
+
+        savedLevels.forEach((savedLevel) => {
+            let levelLinks = Array.from(document.querySelectorAll(".num"));
+            let levelLink = levelLinks.find(
+                (link) =>
+                    parseInt(link.textContent, 10) ===
+                    parseInt(savedLevel.level, 10)
+            );
+
+            if (levelLink) {
+                let recordElem = levelLink.parentNode.querySelector(
+                    ".no-record"
+                );
+                recordElem.textContent = savedLevel.timer;
+                recordElem.className = "record";
+                let currentLevel = levelLinks.findIndex(
+                    (link) =>
+                        parseInt(link.textContent, 10) ===
+                        parseInt(savedLevel.level, 10)
+                );
+                let nextLevel = currentLevel + 1;
+                if (nextLevel < levelLinks.length) {
+                    let nextElem = levelLinks[nextLevel];
+                    nextElem.classList.replace("no-link", "link");
+                }
+            }
+        });
+    } catch (error) {
+        console.error("Ошибка загрузки данных:", error);
     }
-});
+}
+loadLevels();
