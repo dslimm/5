@@ -20,7 +20,6 @@ function createBoard() {
 const gameBoard = createBoard();
 document.body.appendChild(gameBoard);
 
-
 // таймер
 
 let timerInterval;
@@ -39,7 +38,6 @@ function startTimerTime() {
     }, 1000);
 }
 
-
 // загрузка страницы / старт
 
 function loadFunc() {
@@ -54,7 +52,6 @@ function loadFunc() {
     }
 }
 window.addEventListener("load", loadFunc);
-
 
 // создание движущегося куба
 
@@ -77,7 +74,6 @@ class Cub {
         }
     }
 }
-
 
 // создание normal, fix, single кубов
 
@@ -128,7 +124,6 @@ function moveCub(nextCard) {
     return false;
 }
 
-
 // проверка заполненности строки:
 
 function cardWithNumberFilled(number) {
@@ -160,7 +155,6 @@ function cardWithNumberFilled(number) {
     startTimerGame(id);
 }
 
-
 // удаление строки:
 
 function rowDelete(card) {
@@ -168,7 +162,7 @@ function rowDelete(card) {
 
     card.classList.add("row-delete");
     setTimeout(() => {
-        Array.from(card.children).forEach(child => {
+        Array.from(card.children).forEach((child) => {
             if (!fixCubs.includes(child)) {
                 card.removeChild(child);
             }
@@ -177,7 +171,6 @@ function rowDelete(card) {
         moveStoppedCubs();
     }, 150);
 }
-
 
 // движение остановленных кубов после удаления строки:
 
@@ -206,32 +199,86 @@ function moveStoppedCubs(iteration = 0) {
     }, 50);
 }
 
-// function upLinkLevel() {
-//     let level = Number(document.getElementById("level").textContent);
-//     level++;
-//     let linkLevel = document.getElementById("up");
-//     linkLevel.href = `/level${level}/${level}.html`;
-// }
-
 // function upLevelTime(currentTimer) {
 //     let currentLevel = document.getElementById("level").textContent;
-//     localStorage.setItem("currentTimer", currentTimer);
-//     localStorage.setItem("currentLevel", currentLevel);
+
+//     let levels = JSON.parse(localStorage.getItem("levels")) || [];
+
+//     let levelExists = levels.find((level) => level.level === currentLevel);
+
+//     if (levelExists) {
+//         levelExists.timer = currentTimer;
+//     } else {
+//         levels.push({ level: currentLevel, timer: currentTimer });
+//     }
+
+//     localStorage.setItem("levels", JSON.stringify(levels));
 // }
 
-function upLevelTime(currentTimer) {
-    let currentLevel = document.getElementById("level").textContent;
+function openDatabase() {
+    return new Promise((resolve, reject) => {
+        const request = indexedDB.open("GameDatabase", 1);
 
-    let levels = JSON.parse(localStorage.getItem("levels")) || [];
-
-    let levelExists = levels.find((level) => level.level === currentLevel);
-
-    if (levelExists) {
-        levelExists.timer = currentTimer;
-    } else {
-        levels.push({ level: currentLevel, timer: currentTimer });
-    }
-
-    localStorage.setItem("levels", JSON.stringify(levels));
+        request.onupgradeneeded = (event) => {
+            const db = event.target.result;
+            if (!db.objectStoreNames.contains("levels")) {
+                db.createObjectStore("levels", { keyPath: "level" });
+            }
+        };
+        request.onsuccess = (event) => {
+            resolve(event.target.result);
+        };
+        request.onerror = (event) => {
+            reject(event.target.error);
+        };
+    });
 }
 
+function getLevel(db, currentLevel) {
+    return new Promise((resolve, reject) => {
+        const transaction = db.transaction(["levels"], "readonly");
+        const objectStore = transaction.objectStore("levels");
+        const request = objectStore.get(currentLevel);
+
+        request.onsuccess = (event) => {
+            resolve(event.target.result);
+        };
+        request.onerror = (event) => {
+            reject(event.target.error);
+        };
+    });
+}
+
+function saveLevel(db, levelData) {
+    return new Promise((resolve, reject) => {
+        const transaction = db.transaction(["levels"], "readwrite");
+        const objectStore = transaction.objectStore("levels");
+        const request = objectStore.put(levelData);
+
+        request.onsuccess = () => {
+            resolve();
+        };
+        request.onerror = (event) => {
+            reject(event.target.error);
+        };
+    });
+}
+
+async function upLevelTime(currentTimer) {
+    try {
+        const currentLevelText = document.getElementById("level").textContent;
+        const currentLevel = parseInt(currentLevelText, 10);
+        const db = await openDatabase();
+        let levelData = await getLevel(db, currentLevel);
+
+        if (levelData) {
+            levelData.timer = currentTimer;
+        } else {
+            levelData = { level: currentLevel, timer: currentTimer };
+        }
+
+        await saveLevel(db, levelData);
+    } catch (error) {
+        console.error("Ошибка сохранения данных:", error);
+    }
+}
