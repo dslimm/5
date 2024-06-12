@@ -82,46 +82,55 @@ async function loadLevels() {
         const savedRecs = await getAllRecs(db);
 
         createRecs(savedRecs);
+        updateRecs(savedRecs);
+        await updateLevels(db, savedLevels);
 
-        for (let rec of savedRecs) {
-            let lvlElements = document.querySelectorAll(".lvl");
-            lvlElements.forEach((lvlElement) => {
-                if (lvlElement.textContent == rec.level) {
-                    let div = lvlElement.parentNode;
-                    let rec1 = div.querySelector(".rec1");
-                    rec1.textContent = rec.timer;
+        const firstZeroIndex = getFirstZero(savedRecs);
+        setTimeout(() => {
+            scrollToZero(firstZeroIndex);
+        }, 50);
+        hideElems(firstZeroIndex, savedRecs);
+    } catch (error) {
+        console.error("Ошибка загрузки данных:", error);
+    }
+}
+
+function updateRecs(savedRecs) {
+    const lvlElements = document.querySelectorAll(".lvl");
+    savedRecs.forEach((rec) => {
+        lvlElements.forEach((lvlElement) => {
+            if (lvlElement.textContent == rec.level) {
+                const div = lvlElement.parentNode;
+                const rec1 = div.querySelector(".rec1");
+                rec1.textContent = rec.timer;
+            }
+        });
+    });
+}
+
+async function updateLevels(db, savedLevels) {
+    const lvlElements = document.querySelectorAll(".lvl");
+    for (let levelInfo of savedLevels) {
+        for (let lvlElement of lvlElements) {
+            if (lvlElement.textContent == levelInfo.level) {
+                const rec1 = lvlElement.parentNode.querySelector(".rec1");
+                const rec2 = lvlElement.parentNode.querySelector(".rec2");
+                rec2.textContent = levelInfo.timer;
+                const rec1Sec = convertToSec(rec1.textContent);
+                const rec2Sec = convertToSec(rec2.textContent);
+
+                if (rec2Sec < rec1Sec || rec1Sec === 0) {
+                    rec1.textContent = rec2.textContent;
+                    await saveRec(db, levelInfo.level, rec2.textContent);
                 }
-            });
-        }
-
-        for (let levelInfo of savedLevels) {
-            let lvlElements = document.querySelectorAll(".lvl");
-            for (let lvlElement of lvlElements) {
-                if (lvlElement.textContent == levelInfo.level) {
-                    let rec1 = lvlElement.parentNode.querySelector(".rec1");
-                    let rec2 = lvlElement.parentNode.querySelector(".rec2");
-                    rec2.textContent = levelInfo.timer;
-                    let rec1Sec = convertToSec(rec1.textContent);
-                    let rec2Sec = convertToSec(rec2.textContent);
-
-                    if (rec2Sec < rec1Sec || rec1Sec === 0) {
-                        rec1.textContent = rec2.textContent;
-                        await saveRec(db, levelInfo.level, rec2.textContent);
-                    }
-                    if (
-                        convertToSec(rec1.textContent) ===
-                        convertToSec(rec2.textContent)
-                    ) {
-                        rec1.parentNode.className = "best-times";
-                    }
+                if (
+                    convertToSec(rec1.textContent) ===
+                    convertToSec(rec2.textContent)
+                ) {
+                    rec1.parentNode.className = "best-times";
                 }
             }
         }
-        const firstZeroIndex = getFirstZero(savedRecs);
-        scrollToZero(firstZeroIndex);
-        
-    } catch (error) {
-        console.error("Ошибка загрузки данных:", error);
     }
 }
 
@@ -153,6 +162,27 @@ function scrollToZero(firstZeroIndex) {
             block: "center",
         });
     }
+}
+
+function hideElems(firstZeroIndex, savedRecs) {
+    const timesElems = document.querySelectorAll(".times");
+    let startIndex = 0;
+
+    timesElems.forEach((el, index) => {
+        const level = parseInt(el.querySelector(".lvl").textContent);
+        if (level === firstZeroIndex && startIndex === 0) {
+            startIndex = index;
+        }
+    });
+
+    timesElems.forEach((el, index) => {
+        const level = el.querySelector(".lvl").textContent;
+        if (index <= startIndex + 25 || level === "1000") {
+            el.style.display = "flex";
+        } else {
+            el.style.display = "none";
+        }
+    });
 }
 
 loadLevels();
