@@ -16,10 +16,10 @@ function createElements(startLevel, h2Text, isExpand) {
     first10.appendChild(levelsDiv);
     let isFirstH3 = true;
 
-    for (let i = startLevel; i < startLevel + 100; i++) {
+    for (let i = startLevel; i < startLevel + 200; i++) {
         let levelDiv = createDiv("", "level");
         let link = document.createElement("a");
-        link.href = "/5/level.html?id=" + i;
+        link.href = "/level.html?id=" + i;
         link.className = i === startLevel ? "link num" : "no-link num";
         link.textContent = i;
         let span = createSpan("no-record", "00 : 00");
@@ -27,7 +27,7 @@ function createElements(startLevel, h2Text, isExpand) {
         levelDiv.append(link, span);
         levelsDiv.appendChild(levelDiv);
 
-        if (i % 25 === 0 && i !== startLevel + 99) {
+        if (i % 25 === 0 && i !== startLevel + 199) {
             let h3 = createH3(isFirstH3);
             isFirstH3 = false;
             first10.appendChild(h3);
@@ -78,12 +78,18 @@ function createH3(isFirstH3) {
 }
 
 createElements(1, "ОЧЕНЬ МЕДЛЕННО", true);
-createElements(101, "МЕДЛЕННО", false);
-createElements(201, "ОПТИМАЛЬНО", false);
+createElements(201, "МЕДЛЕННО", false);
+createElements(401, "СРЕДНЯЯ СКОРОСТЬ", false);
+createElements(601, "БЫСТРО", false);
+createElements(801, "ОЧЕНЬ БЫСТРО", false);
+
 
 clickForH3(1);
-clickForH3(101);
 clickForH3(201);
+clickForH3(401);
+clickForH3(601);
+clickForH3(801);
+
 
 function clickForH3(startLevel) {
     let mainDiv = document.querySelector("#mainDiv" + startLevel);
@@ -131,29 +137,6 @@ h2Elem.forEach((h2) => {
         right0.className = "right0 " + (isBlock ? "none" : "inline");
     });
 });
-
-// let savedLevels = JSON.parse(localStorage.getItem("levels")) || [];
-
-// savedLevels.forEach((savedLevel) => {
-//     let levelLinks = Array.from(document.querySelectorAll(".num"));
-//     let levelLink = levelLinks.find(
-//         (link) => link.textContent === savedLevel.level
-//     );
-
-//     if (levelLink) {
-//         let recordElem = levelLink.parentNode.querySelector(".no-record");
-//         recordElem.textContent = savedLevel.timer;
-//         recordElem.className = "record";
-//         let currentLevel = levelLinks.findIndex(
-//             (link) => link.textContent === savedLevel.level
-//         );
-//         let nextLevel = currentLevel + 1;
-//         if (nextLevel < levelLinks.length) {
-//             let nextElem = levelLinks[nextLevel];
-//             nextElem.classList.replace("no-link", "link");
-//         }
-//     }
-// });
 
 function openDatabase() {
     return new Promise((resolve, reject) => {
@@ -220,8 +203,30 @@ async function loadLevels() {
                 }
             }
         });
+        const firstZeroIndex = getFirstZero();
+        scrollToZero(firstZeroIndex);
     } catch (error) {
         console.error("Ошибка загрузки данных:", error);
     }
 }
 loadLevels();
+
+function getFirstZero() {
+    const levelDivs = document.querySelectorAll(".level");
+    return Array.from(levelDivs).findIndex((levelDiv) => {
+        const timeElem = levelDiv.querySelector(".no-record");
+        return timeElem !== null && timeElem.textContent === "00 : 00";
+    });
+}
+
+function scrollToZero(firstZeroIndex) {
+    const levelElems = document.querySelectorAll(".level");
+    const firstZero = levelElems[firstZeroIndex];
+
+    if (firstZero) {
+        firstZero.scrollIntoView({
+            behavior: "smooth",
+            block: "center",
+        });
+    }
+}
