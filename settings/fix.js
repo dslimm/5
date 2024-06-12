@@ -127,7 +127,7 @@ function moveCub(nextCard) {
 // проверка заполненности строки:
 
 function cardWithNumberFilled(number) {
-    clearInterval(gameInterval);
+    // clearInterval(gameInterval);
     const cardsNum = document.querySelectorAll('.card[id$="' + number + '"]');
     let allFilled = true;
 
@@ -152,7 +152,7 @@ function cardWithNumberFilled(number) {
             rowDelete(card);
         }
     }
-    startTimerGame(id);
+    // startTimerGame(id);
 }
 
 // удаление строки:
