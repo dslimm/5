@@ -11,7 +11,7 @@ function openDatabase() {
                 const recsStore = db.createObjectStore("recs", {
                     keyPath: "level",
                 });
-                for (let i = 1; i <= 200; i++) {
+                for (let i = 1; i <= 1000; i++) {
                     recsStore.put({ level: i, timer: "00:00" });
                 }
             }
@@ -70,23 +70,18 @@ function saveRec(db, level, timer) {
     });
 }
 
+function convertToSec(time) {
+    const parts = time.split(":");
+    return parseInt(parts[0], 10) * 60 + parseInt(parts[1], 10);
+}
+
 async function loadLevels() {
     try {
         const db = await openDatabase();
         const savedLevels = await getAllLevels(db);
         const savedRecs = await getAllRecs(db);
 
-        for (let rec of savedRecs) {
-            let div = document.createElement("div");
-            div.classList.add("times");
-
-            div.innerHTML = ` 
-                <span class="rec1">${rec.timer}</span> 
-                <span class="lvl">${rec.level}</span> 
-                <span class="rec2">00:00</span> 
-            `;
-            document.body.appendChild(div);
-        }
+        createRecs(savedRecs);
 
         for (let rec of savedRecs) {
             let lvlElements = document.querySelectorAll(".lvl");
@@ -113,63 +108,51 @@ async function loadLevels() {
                         rec1.textContent = rec2.textContent;
                         await saveRec(db, levelInfo.level, rec2.textContent);
                     }
-                    if (convertToSec(rec1.textContent) === convertToSec(rec2.textContent)) { 
-                        rec1.parentNode.className = "best-times"; 
-                    } 
+                    if (
+                        convertToSec(rec1.textContent) ===
+                        convertToSec(rec2.textContent)
+                    ) {
+                        rec1.parentNode.className = "best-times";
+                    }
                 }
             }
         }
+        const firstZeroIndex = getFirstZero(savedRecs);
+        scrollToZero(firstZeroIndex);
+        
     } catch (error) {
         console.error("Ошибка загрузки данных:", error);
     }
 }
 
-function convertToSec(time) {
-    const parts = time.split(":");
-    return parseInt(parts[0], 10) * 60 + parseInt(parts[1], 10);
+function createRecs(savedRecs) {
+    for (let rec of savedRecs) {
+        let div = document.createElement("div");
+        div.classList.add("times");
+
+        div.innerHTML = ` 
+            <span class="rec1">${rec.timer}</span> 
+            <span class="lvl">${rec.level}</span> 
+            <span class="rec2">00:00</span> 
+        `;
+        document.body.appendChild(div);
+    }
 }
+
+function getFirstZero(savedRecs) {
+    return savedRecs.findIndex((rec) => rec.timer === "00:00");
+}
+
+function scrollToZero(firstZeroIndex) {
+    const timesElems = document.querySelectorAll(".times");
+    const firstZero = timesElems[firstZeroIndex];
+
+    if (firstZero) {
+        firstZero.scrollIntoView({
+            behavior: "smooth",
+            block: "center",
+        });
+    }
+}
+
 loadLevels();
-
-// let recs =
-//     JSON.parse(localStorage.getItem("recs")) || Array(200).fill("00 : 00");
-
-// for (let i = 1; i <= 200; i++) {
-//     let div = document.createElement("div");
-//     div.classList.add("times");
-
-//     div.innerHTML = `
-//         <span class="rec1">${recs[i - 1]}</span>
-//         <span class="lvl">${i}</span>
-//         <span class="rec2">00 : 00</span>
-//     `;
-//     document.body.appendChild(div);
-// }
-
-// let levels = JSON.parse(localStorage.getItem("levels")) || [];
-
-// for (let levelInfo of levels) {
-//     let lvlElements = document.querySelectorAll(".lvl");
-//     for (let lvlElement of lvlElements) {
-//         if (lvlElement.textContent == levelInfo.level) {
-//             let rec2 = lvlElement.parentNode.querySelector(".rec2");
-//             let rec1 = lvlElement.parentNode.querySelector(".rec1");
-//             rec2.textContent = levelInfo.timer;
-//             let rec1Sec = convertToSec(rec1.textContent);
-//             let rec2Sec = convertToSec(rec2.textContent);
-
-//             if (rec2Sec < rec1Sec || rec1Sec === 0) {
-//                 rec1.textContent = rec2.textContent;
-//                 recs[levelInfo.level - 1] = rec1.textContent;
-//                 localStorage.setItem("recs", JSON.stringify(recs));
-//             }
-//             if (rec2Sec === rec1Sec) {
-//                 rec1.parentNode.className = "best-times";
-//             }
-//         }
-//     }
-// }
-
-// function convertToSec(time) {
-//     const parts = time.split(":");
-//     return parseInt(parts[0], 10) * 60 + parseInt(parts[1], 10);
-// }
