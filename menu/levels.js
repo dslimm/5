@@ -19,7 +19,7 @@ function createElements(startLevel, h2Text, isExpand) {
     for (let i = startLevel; i < startLevel + 200; i++) {
         let levelDiv = createDiv("", "level");
         let link = document.createElement("a");
-        link.href = "/level.html?id=" + i;
+        link.href = "/5/level.html?id=" + i;
         link.className = i === startLevel ? "link num" : "no-link num";
         link.textContent = i;
         let span = createSpan("no-record", "00 : 00");
