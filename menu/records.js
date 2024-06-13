@@ -1,3 +1,4 @@
+
 function openDatabase() {
     return new Promise((resolve, reject) => {
         const request = indexedDB.open("GameDatabase", 1);
@@ -78,61 +79,75 @@ function convertToSec(time) {
 async function loadLevels() {
     try {
         const db = await openDatabase();
-        const savedLevels = await getAllLevels(db);
-        const savedRecs = await getAllRecs(db);
+        const [savedLevels, savedRecs] = await Promise.all([
+            getAllLevels(db),
+            getAllRecs(db)
+        ]);
+        
 
         createRecs(savedRecs);
         updateRecs(savedRecs);
         await updateLevels(db, savedLevels);
 
         const firstZeroIndex = getFirstZero(savedRecs);
-        setTimeout(() => {
+        requestAnimationFrame(() => {
             scrollToZero(firstZeroIndex);
-        }, 50);
-        hideElems(firstZeroIndex, savedRecs);
+        });
+        
+        hideElems(firstZeroIndex);
     } catch (error) {
         console.error("Ошибка загрузки данных:", error);
     }
 }
 
-function updateRecs(savedRecs) {
-    const lvlElements = document.querySelectorAll(".lvl");
-    savedRecs.forEach((rec) => {
-        lvlElements.forEach((lvlElement) => {
-            if (lvlElement.textContent == rec.level) {
-                const div = lvlElement.parentNode;
-                const rec1 = div.querySelector(".rec1");
-                rec1.textContent = rec.timer;
-            }
-        });
+function updateRecs(savedRecs) {  
+    const lvlElements = document.querySelectorAll(".lvl");  
+    const recsByLevel = {}; 
+
+    savedRecs.forEach((rec) => {  
+        recsByLevel[rec.level] = rec; 
     });
+
+    lvlElements.forEach((lvlElement) => {  
+        const rec = recsByLevel[lvlElement.textContent];
+        if (rec) {  
+            const div = lvlElement.parentNode;  
+            const rec1 = div.querySelector(".rec1");  
+            rec1.textContent = rec.timer;  
+        }  
+    });  
 }
 
 async function updateLevels(db, savedLevels) {
-    const lvlElements = document.querySelectorAll(".lvl");
-    for (let levelInfo of savedLevels) {
-        for (let lvlElement of lvlElements) {
-            if (lvlElement.textContent == levelInfo.level) {
-                const rec1 = lvlElement.parentNode.querySelector(".rec1");
-                const rec2 = lvlElement.parentNode.querySelector(".rec2");
-                rec2.textContent = levelInfo.timer;
-                const rec1Sec = convertToSec(rec1.textContent);
-                const rec2Sec = convertToSec(rec2.textContent);
+    const lvlElements = [...document.querySelectorAll(".lvl")];
+    const lvlMap = lvlElements.reduce((acc, el) => {
+        acc[el.textContent] = el;
+        return acc;
+    }, {});
 
-                if (rec2Sec < rec1Sec || rec1Sec === 0) {
-                    rec1.textContent = rec2.textContent;
-                    await saveRec(db, levelInfo.level, rec2.textContent);
-                }
-                if (
-                    convertToSec(rec1.textContent) ===
-                    convertToSec(rec2.textContent)
-                ) {
-                    rec1.parentNode.className = "best-times";
-                }
+    for (let levelInfo of savedLevels) {
+        let lvlElement = lvlMap[levelInfo.level];
+
+        if (lvlElement) {
+            const rec1 = lvlElement.parentNode.querySelector(".rec1");
+            const rec2 = lvlElement.parentNode.querySelector(".rec2");
+            rec2.textContent = levelInfo.timer;
+            const rec1Sec = convertToSec(rec1.textContent);
+            const rec2Sec = convertToSec(rec2.textContent);
+
+            if (rec2Sec < rec1Sec || rec1Sec === 0) {
+                rec1.textContent = rec2.textContent;
+                await saveRec(db, levelInfo.level, rec2.textContent);
+            }
+
+            if (convertToSec(rec1.textContent) === rec2Sec) {
+                rec1.parentNode.className = "best-times";
             }
         }
     }
 }
+
+
 
 function createRecs(savedRecs) {
     for (let rec of savedRecs) {
@@ -164,7 +179,7 @@ function scrollToZero(firstZeroIndex) {
     }
 }
 
-function hideElems(firstZeroIndex, savedRecs) {
+function hideElems(firstZeroIndex) {
     const timesElems = document.querySelectorAll(".times");
     let startIndex = 0;
 
