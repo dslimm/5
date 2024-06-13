@@ -154,6 +154,10 @@ function createRecs(savedRecs) {
         let div = document.createElement("div");
         div.classList.add("times");
 
+        if (i === savedRecs.length - 1) {
+            div.classList.add("last-level");
+        }
+
         div.innerHTML = ` 
             <span class="rec1">${rec.timer}</span> 
             <span class="lvl">${rec.level}</span> 
