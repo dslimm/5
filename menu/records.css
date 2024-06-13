@@ -82,3 +82,12 @@
         margin-top: 2vh;
     }
 }
+
+.last-level {
+    margin-top: 3vw;
+    margin-bottom: 2vw;
+    padding-top: 1vw;
+    padding-bottom: 1vw;
+    border-top: 1px dashed #000;
+    border-bottom: 1px dashed #000;
+}
