@@ -43,6 +43,15 @@
     color: #ddd;
     text-shadow: none
 }
+.none {
+    display: none;
+}
+.block {
+    display: block;
+}
+.inline {
+    display: inline;
+}
 
 @media screen and (min-width: 321px) and (max-width: 480px) {
     .h2 {
@@ -81,6 +90,7 @@
         font-size: 1.5em;
         margin-top: 1vw;
     }
+    
 }
 
 .last-level {
