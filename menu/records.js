@@ -150,18 +150,19 @@ async function updateLevels(db, savedLevels) {
 
 
 function createRecs(savedRecs) {
-    for (let rec of savedRecs) {
+    for (let i = 0; i < savedRecs.length; i++) {
+        let rec = savedRecs[i];
         let div = document.createElement("div");
         div.classList.add("times");
-
+ 
         if (i === savedRecs.length - 1) {
             div.classList.add("last-level");
         }
-
-        div.innerHTML = ` 
-            <span class="rec1">${rec.timer}</span> 
-            <span class="lvl">${rec.level}</span> 
-            <span class="rec2">00:00</span> 
+ 
+        div.innerHTML = `  
+            <span class="rec1">${rec.timer}</span>  
+            <span class="lvl">${rec.level}</span>  
+            <span class="rec2">00:00</span>  
         `;
         document.body.appendChild(div);
     }
