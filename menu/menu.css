@@ -2,12 +2,11 @@
     display: flex;
     flex-direction: column;
     text-decoration: none;
-    margin: 10% 15%;
+    margin: 12% 15%;
     cursor: pointer;
     font-family: "Rubik Bubbles", sans-serif;
     font-weight: bold;
     font-size: 1.3em;
-    text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.8);
     letter-spacing: 0.2vw;
     word-spacing: 0.5vw;
     text-align: center;
@@ -23,33 +22,156 @@
 }
 .play {
     color: #006400;
+    text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.8);
 }
 .how {
     color: #8b0000;
+    text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.8);
 }
 .records {
     color: #343e40;
+    text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.8);
 }
-.settings {
-    color: #000;
+.reset {
+    color: #fff;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);
 }
 .conf {
-    font-size: 0.6em;
     color: #000;
+    text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.8);
 }
+.modal {
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    transition: opacity 0.5s, visibility 0.5s;
+    visibility: hidden;
+}
+.modal.show {
+    opacity: 1;
+    visibility: visible;
+}
+.modal-content {
+    margin: 30% auto;
+    padding: 0% 10% 10% 10%;
+    border: 1px solid #888;
+    width: 60%;
+    background: radial-gradient(
+            ellipse farthest-corner at right bottom,
+            #fedb37 0%,
+            #fdb931 8%,
+            #9f7928 30%,
+            #8a6e2f 40%,
+            transparent 80%
+        ),
+        radial-gradient(
+            ellipse farthest-corner at left top,
+            #ffffff 0%,
+            #ffffac 8%,
+            #d1b464 25%,
+            #5d4a1f 62.5%,
+            #5d4a1f 100%
+        );
+    background-attachment: fixed;
+    letter-spacing: 0.2em;
+    font-family: "Rubik Bubbles", sans-serif;
+    text-align: center;
+    font-size: 1em;
+    font-weight: bold;
+    /* text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.8); */
+}
+#yes-reset,
+#no-reset {
+    margin: 5% 10%;
+    padding: 2% 5%;
+    cursor: pointer;
+    background: none;
+    border: none;
+    font-family: "Rubik Bubbles", sans-serif;
+    font-size: 2.2em;
+    text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.8);
+}
+#yes-reset {
+    color: #8b0000;
+}
+#no-reset {
+    color: #006400;
+}
+#yes-reset:active,
+#no-reset:active {
+    background-color: #ddd;
+    opacity: 0.6;
+    box-shadow: 0 0 5px 5px rgba(255, 255, 255, 0.3);
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);
+}
+.max-text {
+    margin: 10% 0 2% 0;
+    font-size: 1.2em;
+    color: #000;
+    text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff,
+        1px 1px 0 #fff;
+    font-family: "Rubik Moonrocks", sans-serif;
+    padding: 20% 0;
+}
+
 @media screen and (min-width: 321px) and (max-width: 480px) {
     .menu a {
         font-size: 1.5em;
+    }
+    .modal-content {
+        width: 55%;
+        margin: 20% auto;
+        letter-spacing: 0.2em;
+    }
+    .max-text {
+        font-size: 1.3em;
+        padding: 20% 0;
+    }
+    #yes-reset,
+    #no-reset {
+        font-size: 2.5em;
     }
 }
 @media screen and (min-width: 481px) and (max-width: 700px) {
     .menu a {
         font-size: 2em;
     }
+    .modal-content {
+        margin: 17% auto;
+        letter-spacing: 0.2em;
+    }
+    .max-text {
+        font-size: 2em;
+        padding: 20% 0;
+    }
+    #yes-reset,
+    #no-reset {
+        font-size: 3em;
+    }
 }
 @media screen and (min-width: 701px) and (max-width: 1000px) {
     .menu a {
         font-size: 2.5em;
+    }
+    .modal-content {
+        margin: 20% auto;
+        padding: 0% 5% 2.5% 5%;
+        width: 70%;
+        letter-spacing: 0.3em;
+    }
+    .max-text {
+        font-size: 2.2em;
+        padding: 10% 0;
+    }
+    #yes-reset,
+    #no-reset {
+        font-size: 3.3em;
     }
 }
 @media screen and (min-width: 1001px) {
@@ -57,5 +179,19 @@
         margin: 3% 25%;
         padding: 1.5% 0;
         font-size: 2.5em;
+    }
+    .modal-content {
+        margin: 5% auto;
+        padding: 0 5% 5%;
+        width: 80%;
+        letter-spacing: 0.3em;
+    }
+    .max-text {
+        font-size: 3em;
+        padding: 1% 0;
+    }
+    #yes-reset,
+    #no-reset {
+        font-size: 3.5em;
     }
 }
