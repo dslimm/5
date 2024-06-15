@@ -4,7 +4,7 @@ function switchLevel(id) {
     const levelData = levelsArr[id];
     let content = `   
         <div class="elems1">   
-            <a href="#" id="open-pause-modal" aria-label="Пауза">   
+            <a href="javascript:void(0);" id="open-pause-modal" aria-label="Пауза">   
                 <div class="pause"></div>   
             </a>   
             <div class="levels">   
