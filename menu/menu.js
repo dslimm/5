@@ -1,10 +1,10 @@
 let modal;
 
 if (!document.getElementById("reset-modal")) {
-    createModal();
+    createModal(db);
 }
 
-function createModal() {
+function createModal(db) {
     const modalHtml = `   
         <div id="reset-modal" class="modal">   
             <div class="modal-content">   
