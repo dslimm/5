@@ -22,6 +22,10 @@ function createModal() {
     div.querySelector("#yes-reset").addEventListener("click", function (event) {
         event.stopPropagation();
 
+        if (db) {
+            db.close();
+        }
+
         const request = indexedDB.deleteDatabase("GameDatabase");
 
         request.onsuccess = function () {
