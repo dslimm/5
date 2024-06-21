@@ -1,36 +1,29 @@
-    function openDatabase() {
-        return new Promise((resolve, reject) => {
-            const request = indexedDB.open("GameDatabase", 1);
+function openDatabase() {
+    return new Promise((resolve, reject) => {
+        const request = indexedDB.open("GameDatabase", 1);
 
-            request.onupgradeneeded = (event) => {
-                const db = event.target.result;
-                if (!db.objectStoreNames.contains("levels")) {
-                    db.createObjectStore("levels", { keyPath: "level" });
+        request.onupgradeneeded = (event) => {
+            const db = event.target.result;
+            if (!db.objectStoreNames.contains("levels")) {
+                db.createObjectStore("levels", { keyPath: "level" });
+            }
+            if (!db.objectStoreNames.contains("recs")) {
+                const recsStore = db.createObjectStore("recs", {
+                    keyPath: "level",
+                });
+                for (let i = 1; i <= 1000; i++) {
+                    recsStore.put({ level: i, timer: "00:00" });
                 }
-                if (!db.objectStoreNames.contains("recs")) {
-                    const recsStore = db.createObjectStore("recs", { keyPath: "level" });
-                    for (let i = 1; i <= 1000; i++) {
-                        recsStore.put({ level: i, timer: "00:00" });
-                    }
-                }
-            };
-            request.onsuccess = (event) => {
-                resolve(event.target.result);
-            };
-            request.onerror = (event) => {
-                reject(event.target.error);
-            };
-        });
-    }
-
-    // Пример использования
-    openDatabase().then((db) => {
-        if (!document.getElementById("reset-modal")) {
-            createModal(db);
-        }
-    }).catch(error => {
-        console.error("Ошибка при открытии базы данных:", error);
+            }
+        };
+        request.onsuccess = (event) => {
+            resolve(event.target.result);
+        };
+        request.onerror = (event) => {
+            reject(event.target.error);
+        };
     });
+}
     
 
 function getAllLevels(db) {
