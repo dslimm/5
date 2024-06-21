@@ -1,10 +1,10 @@
 let modal;
 
 if (!document.getElementById("reset-modal")) {
-    createModal(db);
+    createModal();
 }
 
-function createModal(db) {
+function createModal() {
     const modalHtml = `   
         <div id="reset-modal" class="modal">   
             <div class="modal-content">   
@@ -22,9 +22,7 @@ function createModal(db) {
     div.querySelector("#yes-reset").addEventListener("click", function (event) {
         event.stopPropagation();
 
-        if (db) {
-            db.close();
-        }
+    
 
         const request = indexedDB.deleteDatabase("GameDatabase");
 
