@@ -1,8 +1,8 @@
 let modal;
 
-// if (!document.getElementById("reset-modal")) {
-//     createModal(db);
-// }
+if (!document.getElementById("reset-modal")) {
+    createModal(db);
+}
 
 function createModal(db) {
     const modalHtml = `   
