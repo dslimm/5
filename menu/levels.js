@@ -186,6 +186,11 @@ function scrollToZero(firstZeroIndex) {
 }
 
 function hideElems(firstZeroIndex) {
+    // Если нет пройденных уровней, устанавливаем firstZeroIndex на 1
+    if (firstZeroIndex === 0) {
+        firstZeroIndex = 1;
+    }
+    
     const blockIndex = Math.floor((firstZeroIndex - 1) / 200) + 1;
     const startLevel = (blockIndex - 1) * 200 + 1;
     const endLevel = blockIndex * 200;
@@ -206,9 +211,15 @@ function hideElems(firstZeroIndex) {
         levelElems.length
     );
 
+    // Если firstZeroIndex был установлен на 1, то endIndex должен быть 25 или 30 (в зависимости от кратности 5)
+    if (firstZeroIndex === 1) {
+        endIndex = 25 + ((5 - (25 % 5)) % 5);
+    }
+
     levelElems.forEach((el, index) => {
         el.style.display = index < endIndex ? "flex" : "none";
     });
 }
+
 
 loadLevels();
