@@ -1,3 +1,25 @@
+function createRecs(savedRecs) {
+    const fragment = document.createDocumentFragment();
+
+    for (let i = 0; i < savedRecs.length; i++) {
+        let rec = savedRecs[i];
+        let div = document.createElement("div");
+        div.classList.add("times");
+
+        if (i === savedRecs.length - 1) {
+            div.classList.add("last-level");
+        }
+
+        div.innerHTML = `   
+            <span class="rec1">${rec.timer}</span>   
+            <span class="lvl">${rec.level}</span>   
+            <span class="rec2">00:00</span>   
+        `;
+        fragment.appendChild(div);
+    }
+    document.body.appendChild(fragment);
+}
+
 function openDatabase() {
     return new Promise((resolve, reject) => {
         const request = indexedDB.open("GameDatabase", 1);
@@ -24,7 +46,6 @@ function openDatabase() {
         };
     });
 }
-    
 
 function getAllLevels(db) {
     return new Promise((resolve, reject) => {
@@ -143,27 +164,7 @@ async function updateLevels(db, savedLevels) {
     }
 }
 
-function createRecs(savedRecs) {
-    const fragment = document.createDocumentFragment();
 
-    for (let i = 0; i < savedRecs.length; i++) {
-        let rec = savedRecs[i];
-        let div = document.createElement("div");
-        div.classList.add("times");
-
-        if (i === savedRecs.length - 1) {
-            div.classList.add("last-level");
-        }
-
-        div.innerHTML = `   
-            <span class="rec1">${rec.timer}</span>   
-            <span class="lvl">${rec.level}</span>   
-            <span class="rec2">00:00</span>   
-        `;
-        fragment.appendChild(div);
-    }
-    document.body.appendChild(fragment);
-}
 
 function getFirstZero(savedRecs) {
     return savedRecs.findIndex((rec) => rec.timer === "00:00");
