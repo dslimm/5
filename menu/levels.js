@@ -1,142 +1,102 @@
-function createElements(startLevel, h2Text, isExpand) {
-    let mainDiv = createDiv("mainDiv" + startLevel);
-    let h2 = document.createElement("h2");
-    h2.textContent = h2Text;
-    let first10 = createDiv("", "first10");
-    first10.classList.add(isExpand ? "block" : "none");
-    let down0 = createSpan("down0", " ⤋");
-    down0.classList.add(isExpand ? "inline" : "none");
-    let right0 = createSpan("right0", " ⇛");
-    right0.classList.add(isExpand ? "none" : "inline");
+function createElements(startLevel, h2Text, firstZeroIndex) {
+    const docFragment = document.createDocumentFragment();
 
-    h2.append(down0, right0);
-    mainDiv.append(h2, first10);
+    for (let i = startLevel; i < startLevel + 200; i += 200) {
+        const isActiveH2 = firstZeroIndex >= i && firstZeroIndex < i + 200;
+        const mainDiv = createDiv("mainDiv" + i);
+        const h2 = document.createElement("h2");
+        h2.textContent = h2Text;
 
-    let levelsDiv = createDiv("", "levels");
-    first10.appendChild(levelsDiv);
-    let isFirstH3 = true;
+        const first25 = createDiv("", "first25");
+        first25.classList.add(isActiveH2 ? "block" : "none");
+        const down = createSpan("down", " ⤋");
+        down.classList.add(isActiveH2 ? "inline" : "none");
+        const right = createSpan("right", " ⇛");
+        right.classList.add(isActiveH2 ? "none" : "inline");
 
-    for (let i = startLevel; i < startLevel + 200; i++) {
-        let levelDiv = createDiv("", "level");
-        let link = document.createElement("a");
-        link.href = "/5/level.html?id=" + i;
-        link.className = i === startLevel ? "link num" : "no-link num";
-        link.textContent = i;
-        let span = createSpan("no-record", "00 : 00");
-        span.classList.add("inline");
-        levelDiv.append(link, span);
-        levelsDiv.appendChild(levelDiv);
+        h2.append(down, right);
+        mainDiv.append(h2, first25);
+        const levelsDiv = createDiv("", "levels");
+        first25.appendChild(levelsDiv);
+        let allLevelsCompleted = true;
 
-        if (i % 25 === 0 && i !== startLevel + 199) {
-            let h3 = createH3(isFirstH3);
-            isFirstH3 = false;
-            first10.appendChild(h3);
-            levelsDiv = createDiv("", "levels");
-            first10.appendChild(levelsDiv);
+        for (let j = i; j < i + 200; j++) {
+            const levelDiv = createDiv("", "level");
+            const link = document.createElement("a");
+            link.href = "/level.html?id=" + j;
+            link.className = j === startLevel ? "link num" : "no-link num";
+            link.textContent = j;
+
+            if (link.className.includes("no-link")) {
+                allLevelsCompleted = false;
+            }
+
+            const span = createSpan("no-record", "00 : 00");
+            span.classList.add("inline");
+
+            levelDiv.append(link, span);
+            if (isActiveH2 || (!isActiveH2 && j < startLevel + 25)) {
+                levelsDiv.appendChild(levelDiv);
+            }
         }
+
+        if (allLevelsCompleted) {
+            const allLevels = levelsDiv.querySelectorAll(".level");
+            allLevels.forEach((level) => {
+                level.style.display = "block";
+            });
+            down.classList.replace("none", "inline");
+            right.classList.replace("inline", "none");
+        }
+
+        docFragment.appendChild(mainDiv);
     }
-    document.body.appendChild(mainDiv);
-    mainDiv.setAttribute("ontouchstart", "");
+    document.body.appendChild(docFragment);
+    document.body.setAttribute("ontouchstart", "");
 }
 
 function createDiv(id, className, displayClass) {
-    let div = document.createElement("div");
-    if (id) div.id = id;
-    if (className) div.className = className;
-    if (displayClass) div.classList.add(displayClass);
+    const div = document.createElement("div");
+    div.id = id;
+    div.className = className;
+    div.classList.add(displayClass);
     return div;
 }
 
 function createSpan(className, textContent, displayClass = "none") {
-    let span = document.createElement("span");
+    const span = document.createElement("span");
     span.className = className;
     span.textContent = textContent;
     span.classList.add(displayClass);
     return span;
 }
 
-function createH3(isFirstH3) {
-    let h3 = document.createElement("h3");
-    h3.textContent = "Показать ещё 25 уровней";
-    h3.classList.add(isFirstH3 ? "block" : "none");
-    let spanDown = createSpan("down", " ⇓");
-    let spanRight = createSpan("right", " ⇒");
-    spanRight.classList.add("inline");
+createElements(1, "ОЧЕНЬ МЕДЛЕННО", 1);
+createElements(201, "МЕДЛЕННО", 0);
+createElements(401, "НОРМАЛЬНО", 0);
+createElements(601, "БЫСТРО", 0);
+createElements(801, "ОЧЕНЬ БЫСТРО", 0);
 
-    h3.append(spanDown, spanRight);
+function clickForH2() {
+    const h2Elem = document.querySelectorAll("h2");
+    h2Elem.forEach((h2) => {
+        h2.addEventListener("click", function () {
+            const first25 = this.nextElementSibling;
+            const down = this.querySelector(".down");
+            const right = this.querySelector(".right");
 
-    h3.addEventListener("click", function () {
-        let newClass = spanRight.classList.contains("inline")
-            ? "none"
-            : "inline";
-        [spanDown, spanRight].forEach((span) => {
-            span.className = newClass;
-        });
-    });
+            first25.className = first25.className.includes("none")
+                ? "block"
+                : "none";
 
-    return h3;
-}
+            const isBlock = first25.classList.contains("block");
 
-createElements(1, "ОЧЕНЬ МЕДЛЕННО", true);
-createElements(201, "МЕДЛЕННО", false);
-createElements(401, "СРЕДНЯЯ СКОРОСТЬ", false);
-createElements(601, "БЫСТРО", false);
-createElements(801, "ОЧЕНЬ БЫСТРО", false);
-
-
-clickForH3(1);
-clickForH3(201);
-clickForH3(401);
-clickForH3(601);
-clickForH3(801);
-
-
-function clickForH3(startLevel) {
-    let mainDiv = document.querySelector("#mainDiv" + startLevel);
-    let h3Elem = mainDiv.querySelectorAll("h3");
-
-    h3Elem.forEach((h3, index) => {
-        let nextElem = h3.nextElementSibling;
-        let down = h3.querySelector(".down");
-        let right = h3.querySelector(".right");
-        nextElem.classList.add("none");
-
-        h3.addEventListener("click", function () {
-            let status = nextElem.classList.contains("none");
-            nextElem.className = status ? "levels" : "none";
-            down.className = status ? "inline" : "none";
-            right.className = status ? "none" : "inline";
-
-            if (status && h3Elem[index + 1]) {
-                h3Elem[index + 1].className = "block";
-            } else {
-                for (let i = index + 1; i < h3Elem.length; i++) {
-                    h3Elem[i].className = "none";
-                    h3Elem[i].nextElementSibling.className = "none";
-                }
-            }
+            down.className = "down " + (isBlock ? "inline" : "none");
+            right.className = "right " + (isBlock ? "none" : "inline");
         });
     });
 }
-
-let h2Elem = document.querySelectorAll("h2");
-
-h2Elem.forEach((h2) => {
-    h2.addEventListener("click", function () {
-        let first10 = this.nextElementSibling;
-        let down0 = this.querySelector(".down0");
-        let right0 = this.querySelector(".right0");
-
-        first10.className = first10.className.includes("none")
-            ? "block"
-            : "none";
-
-        const isBlock = first10.classList.contains("block");
-
-        down0.className = "down0 " + (isBlock ? "inline" : "none");
-        right0.className = "right0 " + (isBlock ? "none" : "inline");
-    });
-});
+clickForH2();
 
 function openDatabase() {
     return new Promise((resolve, reject) => {
@@ -176,40 +136,34 @@ async function loadLevels() {
     try {
         const db = await openDatabase();
         const savedLevels = await getAllLevels(db);
+        const levelLinks = Array.from(document.querySelectorAll(".num"));
 
         savedLevels.forEach((savedLevel) => {
-            let levelLinks = Array.from(document.querySelectorAll(".num"));
-            let levelLink = levelLinks.find(
+            const levelIndex = levelLinks.findIndex(
                 (link) =>
                     parseInt(link.textContent, 10) ===
                     parseInt(savedLevel.level, 10)
             );
-
-            if (levelLink) {
-                let recordElem = levelLink.parentNode.querySelector(
+            if (levelIndex !== -1) {
+                const levelLink = levelLinks[levelIndex];
+                const recordElem = levelLink.parentNode.querySelector(
                     ".no-record"
                 );
                 recordElem.textContent = savedLevel.timer;
                 recordElem.className = "record";
-                let currentLevel = levelLinks.findIndex(
-                    (link) =>
-                        parseInt(link.textContent, 10) ===
-                        parseInt(savedLevel.level, 10)
-                );
-                let nextLevel = currentLevel + 1;
+                const nextLevel = levelIndex + 1;
                 if (nextLevel < levelLinks.length) {
-                    let nextElem = levelLinks[nextLevel];
-                    nextElem.classList.replace("no-link", "link");
+                    levelLinks[nextLevel].classList.replace("no-link", "link");
                 }
             }
         });
         const firstZeroIndex = getFirstZero();
+        hideElems(firstZeroIndex);
         scrollToZero(firstZeroIndex);
     } catch (error) {
         console.error("Ошибка загрузки данных:", error);
     }
 }
-loadLevels();
 
 function getFirstZero() {
     const levelDivs = document.querySelectorAll(".level");
@@ -230,3 +184,31 @@ function scrollToZero(firstZeroIndex) {
         });
     }
 }
+
+function hideElems(firstZeroIndex) {
+    const blockIndex = Math.floor((firstZeroIndex - 1) / 200) + 1;
+    const startLevel = (blockIndex - 1) * 200 + 1;
+    const endLevel = blockIndex * 200;
+
+    const levelElems = Array.from(document.querySelectorAll(".level")).filter(
+        (el) => {
+            const level = parseInt(el.querySelector(".num").textContent);
+            return level >= startLevel && level <= endLevel;
+        }
+    );
+
+    const startIndex = levelElems.findIndex(
+        (el) =>
+            parseInt(el.querySelector(".num").textContent) === firstZeroIndex
+    );
+    let endIndex = Math.min(
+        startIndex + 25 + ((5 - ((startIndex + 25) % 5)) % 5),
+        levelElems.length
+    );
+
+    levelElems.forEach((el, index) => {
+        el.style.display = index < endIndex ? "flex" : "none";
+    });
+}
+
+loadLevels();
