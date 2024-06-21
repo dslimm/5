@@ -25,7 +25,7 @@ function createModal() {
         const request = indexedDB.deleteDatabase("GameDatabase");
 
         request.onsuccess = function () {
-            location.reload();
+            window.location.href = '/5/index.html';
         };
 
         request.onerror = function (e) {
