@@ -23,7 +23,7 @@ function createElements(startLevel, h2Text, firstZeroIndex) {
         for (let j = i; j < i + 200; j++) {
             const levelDiv = createDiv("", "level");
             const link = document.createElement("a");
-            link.href = "/level.html?id=" + j;
+            link.href = "/5/level.html?id=" + j;
             link.className = j === startLevel ? "link num" : "no-link num";
             link.textContent = j;
 
