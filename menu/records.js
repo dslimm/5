@@ -1,4 +1,3 @@
-
 function openDatabase() {
     return new Promise((resolve, reject) => {
         const request = indexedDB.open("GameDatabase", 1);
@@ -81,41 +80,37 @@ async function loadLevels() {
         const db = await openDatabase();
         const [savedLevels, savedRecs] = await Promise.all([
             getAllLevels(db),
-            getAllRecs(db)
+            getAllRecs(db),
         ]);
-        
 
         createRecs(savedRecs);
         updateRecs(savedRecs);
         await updateLevels(db, savedLevels);
 
         const firstZeroIndex = getFirstZero(savedRecs);
-        requestAnimationFrame(() => {
-            scrollToZero(firstZeroIndex);
-        });
-        
         hideElems(firstZeroIndex);
+        scrollToZero(firstZeroIndex);
     } catch (error) {
         console.error("Ошибка загрузки данных:", error);
     }
 }
 
-function updateRecs(savedRecs) {  
-    const lvlElements = document.querySelectorAll(".lvl");  
-    const recsByLevel = {}; 
+function updateRecs(savedRecs) {
+    const lvlElements = document.querySelectorAll(".lvl");
+    const recsByLevel = {};
 
-    savedRecs.forEach((rec) => {  
-        recsByLevel[rec.level] = rec; 
+    savedRecs.forEach((rec) => {
+        recsByLevel[rec.level] = rec;
     });
 
-    lvlElements.forEach((lvlElement) => {  
+    lvlElements.forEach((lvlElement) => {
         const rec = recsByLevel[lvlElement.textContent];
-        if (rec) {  
-            const div = lvlElement.parentNode;  
-            const rec1 = div.querySelector(".rec1");  
-            rec1.textContent = rec.timer;  
-        }  
-    });  
+        if (rec) {
+            const div = lvlElement.parentNode;
+            const rec1 = div.querySelector(".rec1");
+            rec1.textContent = rec.timer;
+        }
+    });
 }
 
 async function updateLevels(db, savedLevels) {
@@ -147,25 +142,26 @@ async function updateLevels(db, savedLevels) {
     }
 }
 
-
-
 function createRecs(savedRecs) {
+    const fragment = document.createDocumentFragment();
+
     for (let i = 0; i < savedRecs.length; i++) {
         let rec = savedRecs[i];
         let div = document.createElement("div");
         div.classList.add("times");
- 
+
         if (i === savedRecs.length - 1) {
             div.classList.add("last-level");
         }
- 
-        div.innerHTML = `  
-            <span class="rec1">${rec.timer}</span>  
-            <span class="lvl">${rec.level}</span>  
-            <span class="rec2">00:00</span>  
+
+        div.innerHTML = `   
+            <span class="rec1">${rec.timer}</span>   
+            <span class="lvl">${rec.level}</span>   
+            <span class="rec2">00:00</span>   
         `;
-        document.body.appendChild(div);
+        fragment.appendChild(div);
     }
+    document.body.appendChild(fragment);
 }
 
 function getFirstZero(savedRecs) {
@@ -173,9 +169,8 @@ function getFirstZero(savedRecs) {
 }
 
 function scrollToZero(firstZeroIndex) {
-    const timesElems = document.querySelectorAll(".times");
+    const timesElems = document.querySelectorAll(".lvl");
     const firstZero = timesElems[firstZeroIndex];
-
     if (firstZero) {
         firstZero.scrollIntoView({
             behavior: "smooth",
